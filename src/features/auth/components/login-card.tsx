@@ -63,7 +63,7 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
                 
                 <div className="flex flex-col gap-y-2.5">
                     <Button
-                        onClick={() =>{}}
+                        onClick={() =>onProviderLogin('google')}
                         disabled={false}
                         variant={"outline"}
                         size={"lg"}
