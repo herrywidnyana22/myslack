@@ -1,31 +1,95 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { LoginProps } from "../types";
 import { useState } from "react";
-
+import { useAuthActions } from "@convex-dev/auth/react";
+import { Alert } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
+import Image from "next/image"
 
 export const RegisterCard = ({setLoginState}: LoginProps) => {
-    const [email, setEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
-    const [confirmPassword, setConfirmPassword] = useState<string>("")
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+
+    const [error, setError] = useState("")
+    const [isPending, setIsPending] = useState(false)
+    
+    const { signIn } = useAuthActions()
+
+    const onRegisterForm = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault()
+        
+        if(password !== confirmPassword){
+            setError("Password not match")
+            return
+        }
+        setIsPending(true)
+        signIn("password", {
+            name,
+            email,
+            password,
+            flow: "signUp"
+        }) 
+        .catch(() =>{
+            setError("Something went wrong!")
+        })
+        .finally(() =>{
+            setIsPending(false)
+        })
+    }
+
+    const onRegisterProvider = (provider: "google" | "github") =>{
+        setIsPending(true)
+        signIn(provider)
+        .finally(() => {
+            setIsPending(false)
+        })
+    }
     return ( 
         <Card className="w-full h-full p-8">
-            <CardHeader className="px-0 -pt-0">
-                <CardTitle>
-                    Register to continue
-                </CardTitle>
-                <CardDescription>
-                    Use your email to register and continue
-                </CardDescription>
-            </CardHeader>
+            <div className="px-0 pt-0 flex gap-4 items-center mb-5">
+                <div>
+                    <Image
+                        src={'/logo.png'}
+                        alt="logo"
+                        height={"45"}
+                        width={"45"}
+                    />
+                </div>
+                <div className="space-y-1">
+                    <CardTitle>
+                        Register to continue with us
+                    </CardTitle>
+                    <CardDescription>
+                        Use your email to register & continue
+                    </CardDescription>
+                </div>
+            </div>
+            {
+                !!error &&
+                <Alert
+                    type="error"
+                    msg={error}
+                />
+            }
             <CardContent className="space-y-5 px-0 pb-0">
-                <form className="space-y-2.5">
+                <form onSubmit={onRegisterForm} className="space-y-2.5">
                     <Input
-                        disabled={false}
+                        disabled={isPending}
+                        value={name}
+                        placeholder="Full name"
+                        type="text"
+                        required
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <Input
+                        disabled={isPending}
                         value={email}
                         placeholder="Email"
                         type="email"
@@ -33,7 +97,7 @@ export const RegisterCard = ({setLoginState}: LoginProps) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Input
-                        disabled={false}
+                        disabled={isPending}
                         value={password}
                         placeholder="Password"
                         type="password"
@@ -41,7 +105,7 @@ export const RegisterCard = ({setLoginState}: LoginProps) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Input
-                        disabled={false}
+                        disabled={isPending}
                         value={confirmPassword}
                         placeholder="Confirm password"
                         type="password"
@@ -51,19 +115,27 @@ export const RegisterCard = ({setLoginState}: LoginProps) => {
                     <Button
                         type="submit"
                         size={"lg"}
-                        disabled={false}
+                        disabled={isPending}
                         className="w-full"
                     >
-                        Register
+                        {
+                            isPending
+                            ? <Loader2 className="size-4 animate-spin" /> 
+                            : "Register"
+                        }
                     </Button>
                 </form>
                 
-                <Separator/>
+                <div className="relative w-full flex gap-3 items-center justify-center text-muted-foreground">
+                    <span className="w-[43%] ring-[0.5px] ring-muted-foreground"/>
+                    <p>Or</p>
+                    <span className="w-[43%] ring-[0.5px] ring-muted-foreground"/>
+                </div>
                 
                 <div className="flex flex-col gap-y-2.5">
                     <Button
-                        onClick={() =>{}}
-                        disabled={false}
+                        onClick={() =>onRegisterProvider("google")}
+                        disabled={isPending}
                         variant={"outline"}
                         size={"lg"}
                         className="w-full relative"
@@ -72,8 +144,8 @@ export const RegisterCard = ({setLoginState}: LoginProps) => {
                         Register with Google
                     </Button>
                     <Button
-                        onClick={() =>{}}
-                        disabled={false}
+                        onClick={() =>onRegisterProvider("github")}
+                        disabled={isPending}
                         variant={"outline"}
                         size={"lg"}
                         className="w-full relative"
