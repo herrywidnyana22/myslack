@@ -4,4 +4,6 @@ import { api } from "../../../../convex/_generated/api"
 export const useCurrentUser = () =>{
     const currentUser = useQuery(api.users.currentUserID)
     const isLoading = currentUser === undefined
+
+    return { currentUser, isLoading }
 }

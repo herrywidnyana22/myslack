@@ -1,18 +1,18 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { useAuthActions } from "@convex-dev/auth/react";
+import { UserButton } from "@/features/auth/components/user-button";
+import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
+import { useMemo } from "react";
 
 export default function Home() {
-  const { signOut } = useAuthActions()
+  const { workspacesData, isLoading } = useGetWorkspaces()
+  const workspaceID = useMemo(() => {
+    workspacesData?.[0]?._id
+  }, [workspacesData])
   return (
     <div>
-      Logged in
-      <Button
-        onClick={() => signOut()}
-      >
-        Logout
-      </Button>
+      <UserButton/>
     </div>
   );
 }
