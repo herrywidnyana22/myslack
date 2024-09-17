@@ -9,6 +9,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { Alert } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
 import Image from "next/image"
+import { CustomButton } from "@/components/ui/custom-button";
 
 export const LoginCard = ({setLoginState}: LoginProps) => {
 
@@ -89,18 +90,13 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
                         required
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button
+                    <CustomButton
                         type="submit"
-                        size={"lg"}
                         disabled={isPending}
                         className="w-full"
                     >
-                        {
-                            isPending
-                            ? <Loader2 className="size-4 animate-spin" /> 
-                            : "Continue"
-                        }
-                    </Button>
+                        Continue
+                    </CustomButton>
                 </form>
                 <div className="relative w-full flex gap-3 items-center justify-center text-muted-foreground">
                     <span className="w-[43%] ring-[0.5px] ring-muted-foreground"/>

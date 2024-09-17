@@ -1,3 +1,4 @@
+import { channel } from "diagnostics_channel";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -21,6 +22,10 @@ const config: Config = {
   		},
   		colors: {
   			slack: '#5c3b58',
+			toolbar: '#481349',
+			channel: '#5e2c5f',
+			abu: '#ababad',
+			abutua:'#616061',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
