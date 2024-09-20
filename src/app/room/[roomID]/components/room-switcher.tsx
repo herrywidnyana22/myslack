@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { useGetRoom } from "@/features/rooms/api/use-get-room";
 import { useGetRooms } from "@/features/rooms/api/use-get-rooms";
 import { useCreateRoomModal } from "@/features/rooms/store/use-create-room-modal";
@@ -72,7 +73,9 @@ export const RoomSwitcher = ({}: Props) => {
                     >
                         Active room
                     </span>
+                    
                 </DropdownMenuItem>
+                <Separator/>
                 {
                     filteredRooms?.map((room) =>(
                         <DropdownMenuItem
@@ -109,6 +112,7 @@ export const RoomSwitcher = ({}: Props) => {
 
                     ))
                 }
+                <Separator/>
                 <DropdownMenuItem
                     onClick={() => setOpenModal(true)}
                     className="cursor-pointer"
