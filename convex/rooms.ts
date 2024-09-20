@@ -55,14 +55,14 @@ export const get = query({
         const rooms = []
 
         for(const roomID of roomIDs){
-            const rooom = await ctx.db.get(roomID)
+            const room = await ctx.db.get(roomID)
 
-            if(rooom){
-                rooms.push(rooom)
+            if(room){
+                rooms.push(room)
             }
         }
 
-        return await ctx.db.query("rooms").collect()
+        return rooms
     }
 })
 
@@ -73,6 +73,7 @@ export const getByID = query({
     handler: async(ctx, args) =>{
         const userID = await getAuthUserId(ctx)
 
+        // if(userID) throw new Error(`userID: ${userID}`)
         if(!userID) throw new Error("Unauthorized")
 
         const member = await ctx.db
@@ -80,7 +81,7 @@ export const getByID = query({
             .withIndex("by_room_ID_and_user_ID", 
                 (q) => q.eq("roomID", args.id).eq("userID", userID)
             )
-            .unique()
+            .collect()
 
         if(!member) return null
 

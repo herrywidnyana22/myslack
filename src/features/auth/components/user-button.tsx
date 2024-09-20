@@ -27,21 +27,48 @@ export const UserButton = ({}: Props) => {
     
 
     return ( 
-        <DropdownMenu modal={false}>
-            <DropdownMenuTrigger className="relative outline-none">
-                <Avatar className="size-10 transition hover:opacity-75">
+        <DropdownMenu 
+            modal={false}
+        >
+            <DropdownMenuTrigger 
+                className="
+                    relative 
+                    outline-none
+                "
+            >
+                <Avatar 
+                    className="
+                        size-10 
+                        transition 
+                        hover:opacity-75
+                    "
+                >
                     <AvatarImage
                         alt="name"
                         src={image}
                     />
-                    <AvatarFallback className="text-white bg-sky-500">
+                    <AvatarFallback 
+                        className="
+                            text-white 
+                            bg-sky-500
+                        "
+                    >
                         { avatarName }
                     </AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" side="right" className="w-60">
-                <DropdownMenuItem onClick={() => signOut()}>
-                    <LogOut className="size-4 mr-2"/>
+            <DropdownMenuContent 
+                align="center" 
+                side="right" 
+                className="w-60"
+            >
+                <DropdownMenuItem 
+                    onClick={() => signOut()}>
+                    <LogOut 
+                        className="
+                            size-4 
+                            mr-2"
+                    />
                     Logout
                 </DropdownMenuItem>
             </DropdownMenuContent>

@@ -13,7 +13,12 @@ const RoomIDLayout = ({children}: RoomIDLayoutProps) => {
     return (
         <div className="h-full">
             <Toolbar/>
-            <div className="h-[calc(100vh-40px)] flex">
+            <div 
+                className="
+                    h-[calc(100vh-40px)] 
+                    flex
+                "
+            >
                 <Sidebar/>
                 <ResizablePanelGroup
                     direction="horizontal"
@@ -27,7 +32,10 @@ const RoomIDLayout = ({children}: RoomIDLayoutProps) => {
                         <RoomSidebar/>
                     </ResizablePanel>
                     <ResizableHandle withHandle/>
-                    <ResizablePanel minSize={20}>
+                    <ResizablePanel 
+                        minSize={20} 
+                        defaultSize={80}
+                    >
                         {children}
                     </ResizablePanel>
                 </ResizablePanelGroup>

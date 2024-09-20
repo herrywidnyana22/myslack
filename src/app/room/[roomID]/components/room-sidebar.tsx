@@ -15,23 +15,67 @@ export const RoomSidebar = ({}: Props) => {
 
     if(memberLoading || roomLoading){
         return(
-            <div className="h-full flex flex-col items-center justify-center bg-channel">
-                <Loader2 className="size-5 animate-spin text-white"/>
+            <div 
+                className="
+                    h-full 
+                    flex 
+                    flex-col 
+                    items-center 
+                    justify-center 
+                    bg-channel
+                "
+            >
+                <Loader2 
+                    className="
+                        size-5 
+                        animate-spin 
+                        text-white
+                    "
+                />
             </div>
         )
     }
 
     if(!room || !member){
         return(
-            <div className="h-full flex flex-col gap-y-2 items-center justify-center bg-channel">
-                <AlertTriangle className="size-5 text-white"/>
-                <p className="text-sm text-white">Room not found!</p>
+            <div 
+                className="
+                    h-full 
+                    flex 
+                    flex-col 
+                    gap-y-2 
+                    items-center 
+                    justify-center 
+                    bg-channel
+                "
+            >
+                <AlertTriangle 
+                    className="
+                        size-5 
+                        text-white
+                    "
+                />
+                <p 
+                    className="
+                        text-sm 
+                        text-white
+                    "
+                >
+                    Room not found!
+                </p>
             </div>
         )
     }
 
     return ( 
-        <div className="h-full flex flex-col bg-channel">
+        <div 
+            className="
+                h-full 
+                flex 
+                flex-col 
+                bg-channel
+            "
+        >
             <RoomHeader room={room}/>
         </div>
     );

@@ -11,17 +11,42 @@ type SidebarItemProps = {
 
 export const SidebarItem = ({icon: Icon, label, isActive}: SidebarItemProps) => {
     return ( 
-        <div className="group flex flex-col items-center justify-center gap-y-0.5 cursor-pointer">
+        <div 
+            className="
+                group 
+                flex 
+                flex-col 
+                items-center 
+                justify-center 
+                gap-y-0.5 
+                cursor-pointer
+            "
+        >
             <Button 
                 variant={"transparent"} 
-                className={cn(
-                    "size-9 p-2 group-hover:bg-accent/20",
+                className={cn(`
+                    size-9 
+                    p-2 
+                    group-hover:bg-accent/20`,
                     isActive && "bg-accent/20"
                 )}
             >
-                <Icon className="size-5 text-white group-hover:scale-110 transition-all"/>
+                <Icon 
+                    className="
+                        size-5 
+                        text-white 
+                        group-hover:scale-110 
+                        transition-all
+                    "
+                />
             </Button>
-            <span className="text-xs text-white group-hover:text-accent">
+            <span 
+                className="
+                    text-xs 
+                    text-white 
+                    group-hover:text-accent
+                "
+            >
                 { label }
             </span>
         </div>

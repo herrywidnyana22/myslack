@@ -7,13 +7,28 @@ type RoomHeaderProps = {
 }
 export const RoomHeader = ({room}: RoomHeaderProps) => {
     return ( 
-        <div className="h-12 flex items-center justify-between px-4 gap-0.5">
+        <div 
+            className="
+                h-12 
+                flex 
+                items-center 
+                justify-between 
+                px-4 
+                gap-0.5
+            "
+        >
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant={"transparent"}
                         size={"sm"}
-                        className="w-auto p-1.5 font-semibold text-lg overflow-hidden"
+                        className="
+                            w-auto 
+                            p-1.5 
+                            font-semibold 
+                            text-lg 
+                            overflow-hidden
+                        "
                     >
                         <span>{ room.name }</span>
                     </Button>

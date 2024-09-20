@@ -8,13 +8,47 @@ type Props = {
 }
 export const Sidebar = ({}: Props) => {
     return ( 
-        <aside className="h-full w-20 bg-toolbar flex flex-col gap-y-4 items-center pt-2 pb-4">
+        <aside 
+            className="
+                h-full 
+                w-20 
+                flex 
+                flex-col 
+                gap-y-4 
+                items-center 
+                pt-2 
+                pb-4
+                bg-toolbar 
+            "
+        >
             <RoomSwitcher/>
-            <SidebarItem icon={Home} label="Home" isActive/>
-            <SidebarItem icon={MessageSquare} label="Chat"/>
-            <SidebarItem icon={Bell} label="Activity"/>
-            <SidebarItem icon={MoreHorizontal} label="More"/>
-            <div className="flex flex-col items-center justify-center gap-y-1 mt-auto">
+            <SidebarItem 
+                icon={Home} 
+                label="Home" 
+                isActive
+            />
+            <SidebarItem 
+                icon={MessageSquare} 
+                label="Chat"
+            />
+            <SidebarItem 
+                icon={Bell} 
+                label="Activity"
+            />
+            <SidebarItem 
+                icon={MoreHorizontal} 
+                label="More"
+            />
+            <div 
+                className="
+                    flex 
+                    flex-col 
+                    items-center 
+                    justify-center 
+                    gap-y-1 
+                    mt-auto
+                "
+            >
                 <UserButton/>
             </div>
         </aside>

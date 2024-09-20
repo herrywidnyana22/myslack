@@ -46,8 +46,23 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
     }
 
     return ( 
-        <Card className="w-full h-full p-8">
-            <div className="px-0 pt-0 flex gap-4 items-center mb-5">
+        <Card 
+            className="
+                w-full 
+                h-full 
+                p-8
+            "
+        >
+            <div 
+                className="
+                    flex 
+                    items-center 
+                    px-0 
+                    pt-0 
+                    gap-4 
+                    mb-5
+                "
+            >
                 <div>
                     <Image
                         src={'/logo.png'}
@@ -72,8 +87,17 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
                     msg={error}
                 />
             }
-            <CardContent className="space-y-5 px-0 pb-0">
-                <form onSubmit={onLoginForm} className="space-y-2.5">
+            <CardContent 
+                className="
+                    space-y-5 
+                    px-0 
+                    pb-0
+                "
+            >
+                <form 
+                    onSubmit={onLoginForm} 
+                    className="space-y-2.5"
+                >
                     <Input
                         disabled={isPending}
                         value={email}
@@ -98,21 +122,59 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
                         Continue
                     </CustomButton>
                 </form>
-                <div className="relative w-full flex gap-3 items-center justify-center text-muted-foreground">
-                    <span className="w-[43%] ring-[0.5px] ring-muted-foreground"/>
+                <div 
+                    className="
+                        relative 
+                        w-full 
+                        flex 
+                        gap-3 
+                        items-center 
+                        justify-center 
+                        text-muted-foreground
+                    "
+                >
+                    <span 
+                        className="
+                            w-[43%] 
+                            ring-[0.5px] 
+                            ring-muted-foreground
+                        "
+                    />
                     <p>Or</p>
-                    <span className="w-[43%] ring-[0.5px] ring-muted-foreground"/>
+                    <span 
+                        className="
+                            w-[43%] 
+                            ring-[0.5px] 
+                            ring-muted-foreground
+                        "
+                    />
                 </div>
                 
-                <div className="flex flex-col gap-y-2.5">
+                <div 
+                    className="
+                        flex 
+                        flex-col 
+                        gap-y-2.5
+                    "
+                >
                     <Button
                         onClick={() =>onLoginProvider('google')}
                         disabled={isPending}
                         variant={"outline"}
                         size={"lg"}
-                        className="w-full relative"
+                        className="
+                            w-full 
+                            relative
+                        "
                     >
-                        <FcGoogle className="absolute size-5 top-2.5 left-2.5"/>
+                        <FcGoogle 
+                            className="
+                                absolute 
+                                size-5 
+                                top-2.5 
+                                left-2.5
+                            "
+                        />
                         Continue with Google
                     </Button>
                     <Button
@@ -120,17 +182,37 @@ export const LoginCard = ({setLoginState}: LoginProps) => {
                         disabled={isPending}
                         variant={"outline"}
                         size={"lg"}
-                        className="w-full relative"
+                        className="
+                            w-full 
+                            relative
+                        "
                     >
-                        <FaGithub className="absolute size-5 top-2.5 left-2.5"/>
+                        <FaGithub 
+                            className="
+                                absolute 
+                                size-5 
+                                top-2.5 
+                                left-2.5
+                            "
+                        />
                         Continue with Github
                     </Button>
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p 
+                    className="
+                        text-xs 
+                        text-muted-foreground
+                    "
+                >
                     Don&apos;t have an account? 
                     <span 
                         onClick={() => setLoginState("register")}
-                        className="text-sky-700 hover:underline cursor-pointer ml-1"
+                        className="
+                            ml-1
+                            cursor-pointer 
+                            hover:underline 
+                            text-sky-700 
+                        "
                     >
                         Register
                     </span>
