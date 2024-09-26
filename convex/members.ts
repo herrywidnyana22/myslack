@@ -14,7 +14,7 @@ export const current = query({
             .withIndex("by_room_ID_and_user_ID",
                 (q) => q.eq("roomID", args.roomID).eq("userID", userID)
             )
-            .collect()
+            .unique()
 
         if(!member) return null
 

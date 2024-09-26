@@ -76,7 +76,10 @@ export const RoomSidebar = ({}: Props) => {
                 bg-channel
             "
         >
-            <RoomHeader room={room}/>
+            <RoomHeader 
+                room={ room }
+                isAdmin={ member.role === "admin"}
+            />
         </div>
     );
 }

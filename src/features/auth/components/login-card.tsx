@@ -9,7 +9,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { Alert } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
 import Image from "next/image"
-import { CustomButton } from "@/components/ui/custom-button";
+import { CustomButton } from "@/components/custom-button";
 
 export const LoginCard = ({setLoginState}: LoginProps) => {
 

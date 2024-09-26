@@ -73,7 +73,6 @@ export const getByID = query({
     handler: async(ctx, args) =>{
         const userID = await getAuthUserId(ctx)
 
-        // if(userID) throw new Error(`userID: ${userID}`)
         if(!userID) throw new Error("Unauthorized")
 
         const member = await ctx.db
@@ -81,10 +80,73 @@ export const getByID = query({
             .withIndex("by_room_ID_and_user_ID", 
                 (q) => q.eq("roomID", args.id).eq("userID", userID)
             )
-            .collect()
+            .unique()
 
         if(!member) return null
 
         return await ctx.db.get(args.id)
     },
+})
+
+
+export const update = mutation({
+    args:{
+        id: v.id("rooms"),
+        name: v.string()
+    },
+    handler: async(ctx, args) => {
+        const userID = await getAuthUserId(ctx)
+
+        if(!userID) throw new Error("Unauthorized")
+
+        const member = await ctx.db
+            .query("members")
+            .withIndex("by_room_ID_and_user_ID", 
+                (q) => q.eq("roomID", args.id).eq("userID", userID)
+            )
+            .unique()
+
+        if(!member || member.role !== "admin") throw new Error("Unauthorized")
+
+        await ctx.db.patch(args.id, {
+            name: args.name
+        })
+
+        return args.id
+    }
+})
+
+export const remove = mutation({
+    args:{
+        id: v.id("rooms")
+    },
+    handler: async(ctx, args) => {
+        const userID = await getAuthUserId(ctx)
+
+        if(!userID) throw new Error("Unauthorized")
+
+        const member = await ctx.db
+            .query("members")
+            .withIndex("by_room_ID_and_user_ID", 
+                (q) => q.eq("roomID", args.id).eq("userID", userID)
+            )
+            .unique()
+
+        if(!member || member.role !== "admin") throw new Error("Unauthorized")
+
+        const [members] = await Promise.all([
+            ctx.db
+            .query("members")
+            .withIndex("by_room_ID", (q) => q.eq("roomID", args.id))
+            .collect()
+        ])
+
+        for (const member of members){
+            await ctx.db.delete(member._id)
+        }
+
+        await ctx.db.delete(args.id)
+
+        return args.id
+    }
 })

@@ -2,12 +2,11 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useCreateRoomModal } from "../store/use-create-room-modal";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useCreateRoom } from "../api/use-create-rooms";
+import { useCreateRoom } from "../api/use-create-room";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { CustomButton } from "@/components/ui/custom-button";
+import { CustomButton } from "@/components/custom-button";
 
 type Props = {
  

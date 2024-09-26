@@ -5,7 +5,7 @@ import { Id } from "../../../../convex/_generated/dataModel"
 
 
 type ResType = Id<"rooms"> | null
-type ReqType = { name: string }
+type ReqType = { id: Id<"rooms">, name: string }
 
 
 type Options = {
@@ -15,7 +15,7 @@ type Options = {
     throwError?: boolean
 }
 
-export const useCreateRoom =() =>{
+export const useDeleteRoom =() =>{
 
     const [data, setData] = useState<ResType>(null)
     const [error, setError] = useState<Error | null>(null)
@@ -26,7 +26,7 @@ export const useCreateRoom =() =>{
     const isError = useMemo(() => status === "error", [status])
     const isDone = useMemo(() => status === "done", [status])
 
-    const mutation = useMutation(api.rooms.create)
+    const mutation = useMutation(api.rooms.remove)
 
     const mutate = useCallback(async (values: ReqType, options?: Options) => {
         try {
@@ -39,12 +39,15 @@ export const useCreateRoom =() =>{
             options?.onSuccess?.(response)
 
             return response
+
         } catch (error) {
+            setStatus("error")
             options?.onError?.(error as Error)
 
             if(options?.throwError){
                 throw error
             }
+
         } finally {
             setStatus("done")
             options?.onDone?.()
