@@ -1,6 +1,5 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { mutation, query } from "./_generated/server";
-import { auth } from "./auth";
 import { v } from "convex/values";
 
 export const create = mutation({
@@ -78,7 +77,9 @@ export const getByID = query({
         const member = await ctx.db
             .query("members")
             .withIndex("by_room_ID_and_user_ID", 
-                (q) => q.eq("roomID", args.id).eq("userID", userID)
+                (q) => q
+                    .eq("roomID", args.id)
+                    .eq("userID", userID)
             )
             .unique()
 
@@ -102,7 +103,9 @@ export const update = mutation({
         const member = await ctx.db
             .query("members")
             .withIndex("by_room_ID_and_user_ID", 
-                (q) => q.eq("roomID", args.id).eq("userID", userID)
+                (q) => q
+                    .eq("roomID", args.id)
+                    .eq("userID", userID)
             )
             .unique()
 
@@ -125,10 +128,12 @@ export const remove = mutation({
 
         if(!userID) throw new Error("Unauthorized")
 
-        const member = await ctx.db
+            const member = await ctx.db
             .query("members")
             .withIndex("by_room_ID_and_user_ID", 
-                (q) => q.eq("roomID", args.id).eq("userID", userID)
+                (q) => q
+                    .eq("roomID", args.id)
+                    .eq("userID", userID)
             )
             .unique()
 
