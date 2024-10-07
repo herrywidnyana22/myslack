@@ -12,7 +12,9 @@ export const current = query({
         const member = await ctx.db
             .query("members")
             .withIndex("by_room_ID_and_user_ID",
-                (q) => q.eq("roomID", args.roomID).eq("userID", userID)
+                (q) => q
+                    .eq("roomID", args.roomID)
+                    .eq("userID", userID)
             )
             .unique()
 
