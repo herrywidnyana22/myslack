@@ -32,9 +32,8 @@ export const CustomInput = ({
              <input
                     name={name}
                     required={required}
-                    // value={readOnly ? label : value}
                     type={type}
-                    defaultValue={value}
+                    value={value}
                     disabled={disabled}
                     readOnly={readOnly}
                     placeholder={placeholder ? placeholder : "  "}

@@ -2,9 +2,11 @@ import { CustomInput } from "@/components/custom-input"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { useDeleteRoom } from "@/features/rooms/api/use-delete-room"
 import { useUpdateRoom } from "@/features/rooms/api/use-update-room"
+import { useRoomID } from "@/hooks/use-room-id"
 import { cn } from "@/lib/utils"
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
+import { toast } from "sonner"
 
 type PreferenceModalProps = {
     isOpen: boolean
@@ -19,6 +21,25 @@ export const PreferenceModal = ({isOpen, setIsOpen, title}: PreferenceModalProps
 
     const { mutate: updateRoom, isPending: isPendingUpdate } = useUpdateRoom()
     const { mutate: deleteRoom, isPending: isPendingDelete } = useDeleteRoom()
+
+    const roomID = useRoomID()
+
+    const onEdit = (e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault()
+
+        updateRoom({
+            id: roomID,
+            name: title
+        },{
+            onSuccess: () => toast.success("Room updated"),
+            onError: () => toast.error("Failed to update room")
+        })
+    }
+
+    const onCancel = () =>{
+        setIsEditMode(!isEditMode)
+        setInitTitle(title)
+    }
 
     return ( 
         <Dialog
@@ -64,6 +85,7 @@ export const PreferenceModal = ({isOpen, setIsOpen, title}: PreferenceModalProps
                         "
                     >
                         <form
+                            onSubmit={onEdit}
                             className="
                                 relative
                                 flex
@@ -77,7 +99,7 @@ export const PreferenceModal = ({isOpen, setIsOpen, title}: PreferenceModalProps
                                 required
                                 name={"name"}
                                 type="text"
-                                value={title}
+                                value={initTitle}
                                 label="Room name"
                                 onChange={(e) => setInitTitle(e.target.value)}
                                 disabled={isPendingUpdate}
@@ -85,7 +107,7 @@ export const PreferenceModal = ({isOpen, setIsOpen, title}: PreferenceModalProps
                                 editMode
                             />
                             <p
-                                onClick={() => setIsEditMode(!isEditMode)}
+                                onClick={onCancel}
                                 className={cn(`
                                     text-sm
                                     font-semibold
