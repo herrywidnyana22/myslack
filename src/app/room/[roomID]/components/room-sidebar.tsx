@@ -94,7 +94,7 @@ export const RoomSidebar = ({}: Props) => {
                     flex-col
                     px-2
                     mt-3
-                    
+                    gap-1
                 "
             >
                 <RoomMenuItem
