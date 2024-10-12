@@ -5,7 +5,7 @@ import { Id } from "../../../../convex/_generated/dataModel"
 
 
 type ResType = Id<"rooms"> | null
-type ReqType = { id: Id<"rooms">, name: string }
+type ReqType = { id: Id<"rooms"> }
 
 
 type Options = {

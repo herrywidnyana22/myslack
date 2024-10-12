@@ -26,6 +26,7 @@ const config: Config = {
 			channel: '#5e2c5f',
 			abu: '#ababad',
 			abutua:'#616061',
+			textsidebar: '#f9edffcc',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

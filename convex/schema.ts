@@ -14,10 +14,15 @@ const schema = defineSchema({
         roomID: v.id("rooms"),
         role: v.union(v.literal("admin"), v.literal("member"))
     })
-
-    .index("by_user_ID", ['userID'])
-    .index("by_room_ID", ['roomID'])
-    .index("by_room_ID_and_user_ID", ['roomID', 'userID'])
+        .index("by_user_ID", ['userID'])
+        .index("by_room_ID", ['roomID'])
+        .index("by_room_ID_and_user_ID", ['roomID', 'userID']),
+    
+    channels: defineTable({
+        name: v.string(),
+        roomID: v.id("rooms")
+    })
+        .index("by_room_ID", ["roomID"])
 })
  
 export default schema;
