@@ -3,10 +3,7 @@ import { RoomSwitcher } from "./room-switcher";
 import { SidebarItem } from "./sidebar-item";
 import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react";
 
-type Props = {
- 
-}
-export const Sidebar = ({}: Props) => {
+export const Sidebar = () => {
     return ( 
         <aside 
             className="

@@ -1,6 +1,8 @@
+import { useToggle } from "react-use"
 import { Info } from "@/components/info"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, PlusIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 type RoomSectionProps = {
     children: React.ReactNode
@@ -15,6 +17,9 @@ export const RoomSection = ({
     info,
     onAdd
 }: RoomSectionProps) => {
+
+    const [toggleActive, toggle] = useToggle(true)
+
     return ( 
         <div
             className="
@@ -33,6 +38,7 @@ export const RoomSection = ({
                 "
             >
                 <Button
+                    onClick={toggle}
                     variant="transparent"
                     className="
                         size-6
@@ -42,7 +48,13 @@ export const RoomSection = ({
                         text-textsidebar
                     "
                 >
-                    <ChevronDown className="size-5"/>
+                    <ChevronDown 
+                        className={cn(`
+                            size-5
+                            transition-transform`,
+                            !toggleActive && "-rotate-90"
+                        )}
+                    />
                 </Button>
                 <Button
                     variant={"transparent"}
@@ -92,7 +104,11 @@ export const RoomSection = ({
                 }
 
             </div>
-            { children }
+            { toggleActive && 
+                <div className="ml-7">
+                    {children}
+                </div>
+            }
         </div>
     );
 }

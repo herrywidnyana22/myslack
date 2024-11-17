@@ -1,22 +1,25 @@
-import { useCurrentMember } from "@/features/members/use-current-member";
+import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { useGetRoom } from "@/features/rooms/api/use-get-room";
 import { useRoomID } from "@/hooks/use-room-id";
-import { AlertTriangle, HashIcon, Loader2, MessageSquareText, Send, SendHorizonal } from "lucide-react";
+
+import { useGetChanels } from "@/features/channels/api/use-get-channels";
+import { useGetMembers } from "@/features/members/api/use-get-member";
+
 import { RoomHeader } from "./room-header";
-import { RoomMenuItem } from "./room-menu-item";
-import { useGetChanels } from "@/features/auth/api/use-get-channels";
+import { RoomItem } from "./room-item";
 import { RoomSection } from "../room-section";
 
-type Props = {
- 
-}
+import { AlertTriangle, HashIcon, Loader2, MessageSquareText, Send, SendHorizonal } from "lucide-react";
+import { MemberItem } from "./member-item";
 
-export const RoomSidebar = ({}: Props) => {
+
+export const RoomSidebar = () => {
     const roomID = useRoomID()
 
     const {data: member, isLoading: memberLoading} = useCurrentMember({roomID})
     const {data: room, isLoading: roomLoading} = useGetRoom({id: roomID})
     const {data: channels, isLoading: channelsLoading} = useGetChanels({roomID})
+    const {data: members, isLoading: membersLoading} = useGetMembers({roomID})
 
     console.log({channels})
 
@@ -97,12 +100,12 @@ export const RoomSidebar = ({}: Props) => {
                     gap-1
                 "
             >
-                <RoomMenuItem
+                <RoomItem
                     label="Threads"
                     icon={MessageSquareText}
                     id="Threads"
                 />
-                <RoomMenuItem
+                <RoomItem
                     label="Drafts & Sent"
                     icon={SendHorizonal}
                     id="DraftsSent"
@@ -115,7 +118,7 @@ export const RoomSidebar = ({}: Props) => {
             >
             {
                 channels?.map((item) =>(
-                    <RoomMenuItem
+                    <RoomItem
                         key={item._id}
                         id={item._id}
                         label={item.name}
@@ -124,7 +127,23 @@ export const RoomSidebar = ({}: Props) => {
                 ))
             }
             </RoomSection>
-            
+            <RoomSection
+                label="Direct Chat"
+                info="Add new channel"
+                onAdd={() => {}}
+            >
+            {
+                members?.map((item) =>(
+                    <MemberItem 
+                        key={item._id}
+                        id={item._id}
+                        label={item.user.name}
+                        image={item.user.image}
+                    />
+                ))
+            }
+
+            </RoomSection>
         </div>
     );
 }

@@ -7,7 +7,7 @@ import { useRoomID } from "@/hooks/use-room-id";
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils";
 
-const roomMenuItemVariants = cva(`
+const roomItemVariants = cva(`
     h-7 
     flex 
     items-center 
@@ -32,19 +32,19 @@ const roomMenuItemVariants = cva(`
     }
 )
 
-type RoomMenuItemProps = {
+type RoomItemProps = {
     id: string
     label: string
     icon: LucideIcon | IconType
-    variant?: VariantProps<typeof roomMenuItemVariants>["variant"]
+    variant?: VariantProps<typeof roomItemVariants>["variant"]
 }
 
-export const RoomMenuItem = ({
+export const RoomItem = ({
     id,
     label,
     icon: Icon,
     variant
-}: RoomMenuItemProps) => {
+}: RoomItemProps) => {
     const roomID = useRoomID()
 
     return ( 
@@ -52,7 +52,7 @@ export const RoomMenuItem = ({
             asChild
             variant={"transparent"}
             size={"sm"}
-            className={cn(roomMenuItemVariants({ variant }))}
+            className={cn(roomItemVariants({ variant }))}
         >
             <Link
                 href={`/room/${roomID}/channel/${id}`}

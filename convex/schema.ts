@@ -9,6 +9,7 @@ const schema = defineSchema({
         userID: v.id("users"),
         joinCode: v.string()
     }),
+    
     members: defineTable({
         userID: v.id("users"),
         roomID: v.id("rooms"),
